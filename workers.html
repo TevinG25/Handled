@@ -24,7 +24,6 @@
     .section { padding: 5rem 2.5rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     
-    /* Grid system layouts */
     .auth-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; max-width: 960px; margin: 0 auto; align-items: start; }
     @media(max-width:768px) { .auth-grid { grid-template-columns: 1fr; } }
     .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
@@ -37,7 +36,6 @@
     .form-group input:focus { outline: none; border-color: var(--accent); }
     .form-hint { font-size: .74rem; color: var(--muted); margin-top: .25rem; }
     
-    /* Service Selection Grid Boxes */
     .service-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .4rem; }
     .service-checkboxes label {
       display: flex; align-items: center; gap: .8rem; font-size: .83rem; cursor: pointer;
@@ -47,23 +45,19 @@
     .service-checkboxes label:hover { border-color: rgba(240,192,64,.5); }
     .service-checkboxes input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
 
-    /* Custom File Input fields */
     .form-group input[type=file] {
       width: 100%; padding: .5rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--muted); font-size: .85rem; cursor: pointer;
     }
     .form-group input[type=file]::file-selector-button {
-      background: #ffffff; color: #0e0f11; border: none; padding: .4rem .8rem; border-radius: var(--radius-xs); font-weight: 600; font-size: .78rem; margin-right: 1rem; cursor: pointer; transition: background .18s;
+      background: #ffffff; color: #0e0f11; border: none; padding: .4rem .8rem; border-radius: var(--radius-xs); font-weight: 600; font-size: .78rem; margin-right: 1rem; cursor: pointer;
     }
-    .form-group input[type=file]::file-selector-button:hover { background: #e0e0e0; }
 
-    /* Privacy Declarations & Rules */
     .kyc-consent { background: rgba(96,165,250,.04); border: 1px solid rgba(96,165,250,.15); border-radius: var(--radius-sm); padding: 1rem; font-size: .8rem; margin-top: 1.5rem; line-height: 1.5; }
     .kyc-consent strong { color: var(--text); display: block; margin-bottom: .25rem; font-family: 'Syne', sans-serif; }
     .kyc-consent a { color: var(--accent); font-weight: 600; text-decoration: none; }
     .checkbox-group { display: flex; align-items: flex-start; gap: .6rem; font-size: .82rem; margin: 1.2rem 0; line-height: 1.4; }
     .checkbox-group input[type=checkbox] { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
 
-    /* Interactive Interface Elements */
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 700; text-decoration: none; font-family: 'Syne', sans-serif; font-size: .88rem; transition: all .18s; }
     .btn-primary { background: var(--accent); color: #0e0f11; }
     .btn-primary:hover { background: #ffd055; transform: translateY(-1px); }
@@ -102,9 +96,11 @@
   <section class="section">
     <div class="section-inner">
 
+      <!-- AUTH INTERFACE -->
       <div id="workerAuthSection">
         <div class="auth-grid">
           
+          <!-- LOGIN PANEL -->
           <div class="auth-card">
             <h3 style="font-size: 1.3rem;">Worker Login</h3><br>
             <div class="form-group"><label>Email address</label><input type="email" id="wLoginEmail" placeholder="you@example.com" /></div>
@@ -113,18 +109,16 @@
             <button class="btn btn-primary" style="width:100%" onclick="workerLogin()">Log In</button>
           </div>
           
+          <!-- REGISTRATION PANEL -->
           <div class="auth-card">
-            <h3 style="font-size: 1.5rem; letter-spacing: -0.02em;">Register as a Worker</h3><br>
-            
+            <h3 style="font-size: 1.5rem;">Register as a Worker</h3><br>
             <div class="form-group"><label>Full name</label><input type="text" id="wRegName" placeholder="Your full name" /></div>
             <div class="form-group"><label>Email address</label><input type="email" id="wRegEmail" placeholder="you@example.com" /></div>
-            
             <div class="form-group">
               <label>Password</label>
               <input type="password" id="wRegPass" placeholder="At least 8 characters" />
               <div class="form-hint">Minimum 8 characters.</div>
             </div>
-            
             <div class="form-group"><label>Phone number</label><input type="tel" id="wRegPhone" placeholder="+267 7X XXX XXX" /></div>
             <div class="form-group"><label>Area / Location</label><input type="text" id="wRegArea" placeholder="e.g. Tlokweng, Gaborone" /></div>
             
@@ -143,16 +137,14 @@
             </div>
             
             <div style="margin-top: 1.5rem;">
-              <label style="display:block; font-size:.83rem; font-weight:700; margin-bottom:.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted);">KYC Documents</label>
+              <label style="display:block; font-size:.83rem; font-weight:700; margin-bottom:.6rem; text-transform: uppercase; color: var(--muted);">KYC Documents</label>
               <div class="form-group"><label>Government ID / Passport <span style="color:var(--danger)">*</span></label><input type="file" id="kycId" /></div>
               <div class="form-group"><label>Selfie <span style="color:var(--danger)">*</span></label><input type="file" id="kycSelfie" /></div>
-              <div class="form-group"><label>Proof of Address (optional)</label><input type="file" id="kycAddress" /></div>
-              <div class="form-group"><label>Certificates (optional)</label><input type="file" id="kycCert" /></div>
             </div>
             
             <div class="kyc-consent">
               <strong>KYC & Privacy Consent</strong>
-              Your documents are used solely to verify your identity. They are stored securely and reviewed only by authorised Handled staff. By submitting, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.
+              Your documents are used solely to verify your identity.
             </div>
             
             <div class="checkbox-group">
@@ -162,14 +154,11 @@
             
             <div id="wRegError" class="alert alert-warning hidden"></div>
             <button class="btn btn-primary" style="width:100%; margin-bottom: 1rem;" onclick="workerRegister()">Register & Submit KYC</button>
-            
-            <div class="alert alert-info">
-              <strong>Note:</strong> This is a prototype. Documents are not actually uploaded or stored.
-            </div>
           </div>
         </div>
       </div>
 
+      <!-- WORKER DASHBOARD -->
       <div id="workerDashboard" class="hidden">
         <div class="dashboard">
           <div style="display:flex; justify-content:space-between; align-items:center">
@@ -178,7 +167,7 @@
           </div>
           <br><hr style="border-color:var(--border)"><br>
           <h4>Available Job Stream Feed</h4>
-          <div id="workerJobList" class="task-list">Searching active system feed...</div>
+          <div id="workerJobList" class="task-list">Searching active feed...</div>
         </div>
       </div>
 
@@ -190,16 +179,42 @@
 </div>
 
 <script>
-let state = { currentUser: null, tasks: [], workers: [] };
+let state = { currentUser: null, tasks: [], workers: [], customers: [] };
 
-function loadState(){ try { const s=localStorage.getItem('handled_state'); if(s){const d=JSON.parse(s); if(d.tasks)state.tasks=d.tasks; if(d.workers)state.workers=d.workers;} } catch(e){} }
-function saveState(){ try { localStorage.setItem('handled_state',JSON.stringify({tasks:state.tasks, workers:state.workers})); } catch(e){} }
+function loadState(){ 
+  try { 
+    const s = localStorage.getItem('handled_state'); 
+    if(s){
+      const d = JSON.parse(s); 
+      if(d.tasks) state.tasks = d.tasks; 
+      if(d.workers) state.workers = d.workers; 
+      if(d.customers) state.customers = d.customers;
+    } 
+    const sessionUser = localStorage.getItem('handled_current_user');
+    if(sessionUser) { state.currentUser = JSON.parse(sessionUser); }
+  } catch(e){} 
+}
+
+function saveState(){ 
+  try { 
+    localStorage.setItem('handled_state', JSON.stringify({tasks:state.tasks, workers:state.workers, customers:state.customers})); 
+    if(state.currentUser) {
+      localStorage.setItem('handled_current_user', JSON.stringify(state.currentUser));
+    } else {
+      localStorage.removeItem('handled_current_user');
+    }
+  } catch(e){} 
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   loadState();
+  if(state.currentUser) {
+    if(document.getElementById('workerDashboard')) {
+      showDashboard(state.currentUser.name);
+    }
+  }
 });
 
-// Enforces max-4 selections rule dynamically
 function enforceServiceLimit(cb){
   const checked = [...document.querySelectorAll('#workerServiceChecks input:checked')];
   if(checked.length > 4){
@@ -214,8 +229,9 @@ function workerLogin(){
   const email=document.getElementById('wLoginEmail').value.trim(); const pass=document.getElementById('wLoginPass').value;
   const errEl=document.getElementById('wLoginError'); errEl.classList.add('hidden');
   const worker=state.workers.find(w=>w.email===email&&w.password===pass);
-  if(!worker){ errEl.textContent='Invalid Account Match.'; errEl.classList.remove('hidden'); return; }
+  if(!worker){ errEl.textContent='Invalid credentials.'; errEl.classList.remove('hidden'); return; }
   state.currentUser=worker;
+  saveState();
   showDashboard(worker.name);
 }
 
@@ -230,20 +246,15 @@ function workerRegister(){
   const selfieFile=document.getElementById('kycSelfie').files.length;
   const errEl=document.getElementById('wRegError'); errEl.classList.add('hidden');
   
-  // Validation processing loops
-  if(!name || !email || !pass || !phone || !area){ errEl.textContent='Please fill in all textual registration fields.'; errEl.classList.remove('hidden'); return; }
+  if(!name || !email || !pass || !phone || !area){ errEl.textContent='Please fill in all fields.'; errEl.classList.remove('hidden'); return; }
   if(pass.length < 8){ errEl.textContent='Password must be at least 8 characters.'; errEl.classList.remove('hidden'); return; }
+  if(!consent){ errEl.textContent='You must check the consent box to register.'; errEl.classList.remove('hidden'); return; }
+  if(idFile === 0 || selfieFile === 0){ errEl.textContent='ID and Selfie files are mandatory.'; errEl.classList.remove('hidden'); return; }
   
-  const checkedServices = [...document.querySelectorAll('#workerServiceChecks input:checked')];
-  if(checkedServices.length === 0){ errEl.textContent='Please select at least 1 job service tier.'; errEl.classList.remove('hidden'); return; }
-  if(idFile === 0 || selfieFile === 0){ errEl.textContent='Government ID and Selfie identity files are mandatory.'; errEl.classList.remove('hidden'); return; }
-  
-  // Requirement 5 Verification: Denies submission cleanly if context box is false
-  if(!consent){ errEl.textContent='You must review and accept the KYC consent notice and privacy policy to register.'; errEl.classList.remove('hidden'); return; }
-  
-  const worker={id:Date.now(), name, email, password:pass, phone, area, services: checkedServices.map(c=>c.value)}; 
-  state.workers.push(worker); saveState();
+  const worker={id:Date.now(), name, email, password:pass, phone, area}; 
+  state.workers.push(worker); 
   state.currentUser=worker;
+  saveState();
   showDashboard(name);
 }
 
@@ -257,11 +268,14 @@ function showDashboard(name){
 
 function renderAvailableJobs(){
   const list=document.getElementById('workerJobList');
-  if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No jobs pending execution in Gaborone.</p>'; return; }
-  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Compensation: P${t.price}</span></div><button class="btn btn-primary" onclick="alert('Accepted!')">Accept Job</button></div>`).join('');
+  if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No jobs pending execution.</p>'; return; }
+  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong></div><button class="btn btn-primary" onclick="alert('Accepted!')">Accept Job</button></div>`).join('');
 }
 
-function workerLogout(){ window.location.reload(); }
+function workerLogout(){ 
+  localStorage.removeItem('handled_current_user');
+  window.location.reload(); 
+}
 </script>
 </body>
 </html>
