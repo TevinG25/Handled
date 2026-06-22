@@ -30,7 +30,8 @@
     .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; font-size: .78rem; margin-bottom: .35rem; color: var(--muted); }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: .6rem .9rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: .6rem .9rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); font-family: inherit; font-size: .88rem; }
+    .form-group input:focus { outline: none; border-color: var(--accent); }
     .btn { display: inline-flex; padding: 10px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 500; text-decoration: none; }
     .btn-primary { background: var(--accent); color: #0e0f11; }
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
@@ -53,7 +54,7 @@
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html">Handled</a>
+  <a class="nav-brand" href="index.html">Handled🤝</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
@@ -66,28 +67,14 @@
     <a href="customers.html">Login / Sign Up</a>
   </div>
 </nav>
-      <nav aria-label="Main navigation">
-  <a class="nav-brand" href="index.html">Handled🤝</a>
-  <ul class="nav-links" role="list">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="workers.html">Workers</a></li>
-    <li><a href="customers.html" class="active">Customers</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="contact.html" class="active">Contact</a></li>
-  </ul>
-  <div class="nav-right">
-    <a href="customers.html" style="font-size: .85rem; font-weight: 700; color: #0e0f11; background: var(--accent); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-family: 'Syne', sans-serif;">Login / Sign Up</a>
-  </div>
-</nav>
 
 <div class="page" style="display:block;">
   <section class="section">
     <div class="section-inner">
       
-      <!-- AUTH GATE -->
       <div id="customerAuthSection">
         <div class="auth-grid">
+          
           <div class="auth-card">
             <h3>Customer Login</h3><br>
             <div class="form-group"><label>Email address</label><input type="email" id="cLoginEmail" placeholder="you@example.com" /></div>
@@ -95,18 +82,21 @@
             <div id="cLoginError" class="alert alert-warning hidden"></div>
             <button class="btn btn-primary" style="width:100%" onclick="customerLogin()">Log In</button>
           </div>
+          
           <div class="auth-card">
             <h3>Create an Account</h3><br>
             <div class="form-group"><label>Full name</label><input type="text" id="cRegName" placeholder="Your name" /></div>
             <div class="form-group"><label>Email address</label><input type="email" id="cRegEmail" placeholder="you@example.com" /></div>
             <div class="form-group"><label>Password</label><input type="password" id="cRegPass" placeholder="At least 8 characters" /></div>
+            
+            <div class="form-group"><label>Phone number</label><input type="tel" id="cRegPhone" placeholder="+267 7X XXX XXX" /></div>
+            
             <div id="cRegError" class="alert alert-warning hidden"></div>
             <button class="btn btn-primary" style="width:100%" onclick="customerRegister()">Create Account</button>
           </div>
         </div>
       </div>
 
-      <!-- DASHBOARD -->
       <div id="customerDashboard" class="hidden">
         <div class="dashboard">
           <div class="dashboard-header">
@@ -117,7 +107,7 @@
           <div style="background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:1.6rem; margin-bottom:2rem">
             <h4 style="margin-bottom:1rem">Post a New Job</h4>
             <div class="form-group">
-              <label>Service</label>
+              <label>Service Type</label>
               <select id="taskService" onchange="updateTaskSubOptions()">
                 <option value="">— Choose a service —</option>
                 <option value="cleaning">🏠 House Cleaning</option>
@@ -129,13 +119,13 @@
                 <option value="misc">🎲 Miscellaneous</option>
               </select>
             </div>
-            <div class="form-group" id="taskSubGroup" style="display:none"><label>Specify job</label><select id="taskSub" onchange="updatePriceEstimate()"></select></div>
+            <div class="form-group" id="taskSubGroup" style="display:none"><label>Specify job details</label><select id="taskSub" onchange="updatePriceEstimate()"></select></div>
             <div class="form-group">
-              <label>Drop a pin on the map (click to place)</label>
+              <label>Drop a pin on the map (click to place layout flag)</label>
               <div id="taskMap"></div>
               <div style="font-size:.78rem;color:var(--muted);margin-top:.3rem" id="locationStatus">No location selected.</div>
             </div>
-            <div class="form-group"><label>Description</label><textarea id="taskDesc" rows="3" placeholder="Describe the job..."></textarea></div>
+            <div class="form-group"><label>Description</label><textarea id="taskDesc" rows="3" placeholder="Provide extra helpful descriptions..."></textarea></div>
             <div class="price-estimate" id="priceEstimate">Select a service to see price estimate.</div><br>
             <button class="btn btn-primary" onclick="postTask()">Post Job</button>
           </div>
@@ -178,25 +168,32 @@ function customerLogin(){
   const email=document.getElementById('cLoginEmail').value.trim(); const pass=document.getElementById('cLoginPass').value;
   const errEl=document.getElementById('cLoginError'); errEl.classList.add('hidden');
   const cust=state.customers.find(c=>c.email===email&&c.password===pass);
-  if(!cust){ errEl.textContent='Incorrect credentials.'; errEl.classList.remove('hidden'); return; }
+  if(!cust){ errEl.textContent='Incorrect email matching parameters.'; errEl.classList.remove('hidden'); return; }
   state.currentUser=cust;
-  document.getElementById('customerAuthSection').classList.add('hidden');
-  document.getElementById('customerDashboard').classList.remove('hidden');
-  document.getElementById('customerWelcome').textContent='Welcome, '+cust.name;
-  document.getElementById('navAuthZone').innerHTML = `<span style="font-size:0.85rem;color:var(--accent)">👋 ${cust.name}</span>`;
-  setTimeout(initMap, 200);
-  refreshCustomerDashboard();
+  showDashboardInterface(cust.name);
 }
 
 function customerRegister(){
-  const name=document.getElementById('cRegName').value.trim(); const email=document.getElementById('cRegEmail').value.trim(); const pass=document.getElementById('cRegPass').value;
+  const name=document.getElementById('cRegName').value.trim(); 
+  const email=document.getElementById('cRegEmail').value.trim(); 
+  const pass=document.getElementById('cRegPass').value;
+  const phone=document.getElementById('cRegPhone').value.trim();
   const errEl=document.getElementById('cRegError'); errEl.classList.add('hidden');
-  if(!name||!email||!pass){ errEl.textContent='All fields required.'; errEl.classList.remove('hidden'); return; }
-  if(state.customers.find(c=>c.email===email)){ errEl.textContent='Account exists.'; errEl.classList.remove('hidden'); return; }
-  const cust={id:Date.now(),name,email,password:pass}; state.customers.push(cust); saveState();
+  
+  if(!name || !email || !pass || !phone){ errEl.textContent='All fields including a phone number are required.'; errEl.classList.remove('hidden'); return; }
+  if(pass.length < 8){ errEl.textContent='Password must be at least 8 characters long.'; errEl.classList.remove('hidden'); return; }
+  if(state.customers.find(c=>c.email===email)){ errEl.textContent='This email account parameter already exists.'; errEl.classList.remove('hidden'); return; }
+  
+  const cust={id:Date.now(), name, email, password:pass, phone}; 
+  state.customers.push(cust); saveState();
   state.currentUser=cust;
+  showDashboardInterface(name);
+}
+
+function showDashboardInterface(name){
   document.getElementById('customerAuthSection').classList.add('hidden');
   document.getElementById('customerDashboard').classList.remove('hidden');
+  document.getElementById('customerWelcome').textContent='Welcome, '+name;
   document.getElementById('navAuthZone').innerHTML = `<span style="font-size:0.85rem;color:var(--accent)">👋 ${name}</span>`;
   setTimeout(initMap, 200);
   refreshCustomerDashboard();
@@ -212,13 +209,17 @@ function initMap(){
   map.on('click',function(e){
     const {lat,lng}=e.latlng; state.taskLat=lat; state.taskLng=lng; state.insideGaborone=isInsideGaborone(lat,lng);
     if(state.mapMarker) state.mapMarker.setLatLng([lat,lng]);
-    else state.mapMarker=L.marker([lat,lng]).addTo(map);
+    else state.mapMarker=L.marker([lat,lng],{draggable:true}).addTo(map).on('dragend', function(evt){
+      const pt = evt.target.getLatLng();
+      state.taskLat=pt.lat; state.taskLng=pt.lng; state.insideGaborone=isInsideGaborone(pt.lat,pt.lng);
+      updateLocationStatus(); updatePriceEstimate();
+    });
     updateLocationStatus(); updatePriceEstimate();
   });
 }
 
 function updateLocationStatus(){
-  document.getElementById('locationStatus').textContent=`📍 ${state.taskLat.toFixed(4)}, ${state.taskLng.toFixed(4)} — ${state.insideGaborone?'Gaborone (+P30)':'Outside Gaborone (+P50)'}`;
+  document.getElementById('locationStatus').textContent=`📍 ${state.taskLat.toFixed(4)}, ${state.taskLng.toFixed(4)} — ${state.insideGaborone?'Gaborone Region (+P30)':'Outside Boundaries (+P50)'}`;
 }
 
 function updateTaskSubOptions(){
@@ -230,22 +231,23 @@ function updateTaskSubOptions(){
 
 function updatePriceEstimate(){
   const subPrice=parseInt(document.getElementById('taskSub').value)||0; const transport=state.insideGaborone?30:50;
-  document.getElementById('priceEstimate').innerHTML=`<strong>Estimated total: P${subPrice+transport}</strong>`;
+  document.getElementById('priceEstimate').innerHTML=`<strong>Estimated total execution fee: P${subPrice+transport}</strong> &nbsp;(P${subPrice} item + P${transport} transport calculation)`;
 }
 
 function postTask(){
-  const svc=document.getElementById('taskService').value; if(!svc||state.taskLat===null) { alert('Fill in service and location map pin.'); return; }
+  const svc=document.getElementById('taskService').value; if(!svc||state.taskLat===null) { alert('Specify your job types and pin layout flags onto the map container.'); return; }
   const subSel=document.getElementById('taskSub'); const subPrice=parseInt(subSel.value)||0; const subLabel=subSel.options[subSel.selectedIndex].text;
   const total=subPrice+(state.insideGaborone?30:50);
   const task={id:Date.now(), customerName:state.currentUser.name, serviceLabel:svc, subLabel, price:total, status:'pending'};
   state.tasks.push(task); saveState(); refreshCustomerDashboard();
-  alert('Job Posted Successfully!');
+  alert('Job Task Successfully Sent out to System Feed Matrix.');
 }
 
+// Re-renders the customer dynamic dashboard listings
 function refreshCustomerDashboard(){
   const list=document.getElementById('customerTaskList');
-  if(!state.tasks.length){ list.innerHTML='<p>No jobs posted yet.</p>'; return; }
-  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Price: P${t.price}</span></div><div><span class="status-badge pending">${t.status}</span></div></div>`).join('');
+  if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No active system requests found.</p>'; return; }
+  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Est P${t.price}</span></div><div><span class="status-badge pending">${t.status}</span></div></div>`).join('');
 }
 </script>
 </body>
