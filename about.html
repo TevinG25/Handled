@@ -8,29 +8,66 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0e0f11; --surface: #16181c; --border: #2a2d35; --accent: #f0c040; --text: #f0ece4; --muted: #7a7f8e; --radius: 14px;
+      --bg: #0e0f11; --surface: #16181c; --surface2: #1e2127; --border: #2a2d35;
+      --accent: #f0c040; --text: #f0ece4; --muted: #7a7f8e; --radius: 14px; --radius-sm: 8px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding-top: 66px;}
-    h2, h3 { font-family: 'Syne', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+    
+    /* Navbar Styles */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(14,15,17,.92); backdrop-filter: blur(18px); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 66px; border-bottom: 1px solid var(--border); }
-    .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.4rem;}
-    .nav-links { display: flex; list-style: none; }
-    .nav-links a { padding: 8px 13px; font-size: .84rem; color: var(--muted); text-decoration: none; }
+    .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links a { padding: 8px 13px; font-size: .84rem; font-weight: 500; color: var(--muted); text-decoration: none; }
     .nav-links a.active { color: var(--accent); background: rgba(240,192,64,.09); border-radius: 6px; }
+    .nav-right { display: flex; align-items: center; gap: .8rem; }
+    .nav-right a { font-size: .85rem; font-weight: 700; color: #0e0f11; background: var(--accent); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-family: 'Syne', sans-serif; }
+    
+    /* Layout Configurations */
     .section { padding: 5rem 2.5rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
-    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-    .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem 1.4rem; }
-    footer { background: var(--surface); text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border); }
+    .section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: var(--accent); margin-bottom: .5rem; font-family: 'Syne', sans-serif; }
+    .section-title { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -.02em; }
+    
+    /* Values 4-Column Grid */
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+    .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 1.6rem; transition: all .22s; }
+    .value-card:hover { border-color: rgba(240,192,64,.3); transform: translateY(-2px); }
+    .value-icon { font-size: 1.6rem; margin-bottom: 1rem; display: block; }
+    .value-card h3 { font-size: 1.1rem; margin-bottom: .5rem; font-weight: 700; }
+    .value-card p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+    
+    /* Trust & Safety Panel Box */
+    .trust-section { background: var(--surface); border: 1px solid rgba(240,192,64,0.25); border-radius: var(--radius); padding: 2.5rem; margin-top: 3.5rem; }
+    .trust-section h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: .4rem; color: var(--accent); }
+    .trust-section > p { font-size: .88rem; color: var(--muted); margin-bottom: 2rem; }
+    
+    /* Trust Workflow Steps (Horizontal with side borders) */
+    .trust-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .trust-step { border-left: 2px solid var(--accent); padding-left: 1.2rem; }
+    .trust-step h4 { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; color: var(--text); line-height: 1.4; }
+    .trust-step p { font-size: .83rem; color: var(--muted); line-height: 1.6; }
+    
+    /* Photo Placeholders Section */
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .photo-placeholder { background: var(--surface); border: 2px dashed var(--border); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; padding: 3rem 1.5rem; text-align: center; height: 180px; }
+    .photo-placeholder .ph-icon { font-size: 2rem; opacity: .25; }
+    .photo-placeholder p { font-size: .78rem; color: var(--muted); line-height: 1.4; }
+    
+    .divider { height: 1px; background: var(--border); margin: 3.5rem 0; }
+    
+    /* Footer styles */
+    footer { background: var(--surface); text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
     footer a { color: var(--muted); text-decoration: none; margin: 0 .6rem; }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .3rem 1.2rem; margin-bottom: .8rem; }
   </style>
 </head>
 <body>
-  
-  <nav aria-label="Main navigation">
+
+<nav>
   <a class="nav-brand" href="index.html">Handled🤝</a>
-  <ul class="nav-links" role="list">
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
     <li><a href="workers.html">Workers</a></li>
@@ -39,23 +76,92 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="customers.html" style="font-size: .85rem; font-weight: 700; color: #0e0f11; background: var(--accent); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-family: 'Syne', sans-serif;">Login / Sign Up</a>
+    <a href="customers.html">Login / Sign Up</a>
   </div>
 </nav>
 
-<div class="page" id="page-about" style="display:block;">
+<div class="page" style="display:block;">
   <section class="section">
     <div class="section-inner">
-      <h2 style="font-size: 2.4rem; margin-bottom: 1rem;">Built for Gaborone</h2>
-      <p style="max-width:620px; color:var(--muted); margin-bottom:3rem;">Finding trustworthy help for home jobs in Botswana has always been word-of-mouth. Handled changes that — by making it easy to post a task, find a verified worker, and complete a job with full accountability on both sides.</p>
+      <p class="section-label">Our story</p>
+      <h2 class="section-title">Built for Gaborone</h2>
+      <p style="max-width: 720px; color: var(--muted); font-size: 1.05rem; line-height: 1.8;">
+        Finding trustworthy help for home jobs in Botswana has always been word-of-mouth. Handled changes that — by making it easy to post a task, find a verified worker, and complete a job with full accountability on both sides.
+      </p>
+      
       <div class="values-grid">
-        <div class="value-card"><h3>🛡️ Trust first</h3><p>Every worker is KYC-verified before they can take any job.</p></div>
-        <div class="value-card"><h3>💬 Transparency</h3><p>Prices are fixed and shown before you post. No surprises.</p></div>
+        <div class="value-card">
+          <span class="value-icon">🛡️</span>
+          <h3>Trust first</h3>
+          <p>Every worker is KYC-verified before they can take any job.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">💬</span>
+          <h3>Transparency</h3>
+          <p>Prices are fixed and shown before you post. No surprises.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">📸</span>
+          <h3>Accountability</h3>
+          <p>Before and after photos are mandatory on every job.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🤝</span>
+          <h3>Fair for workers</h3>
+          <p>Workers set their availability and keep 85% of every job.</p>
+        </div>
       </div>
+      
+      <div class="trust-section">
+        <h3>Trust & Safety</h3>
+        <p>What happens when something goes wrong</p>
+        
+        <div class="trust-steps">
+          <div class="trust-step">
+            <h4 style="color: var(--accent);">Contact support within 48 hours</h4>
+            <p>Email or WhatsApp us within 48 hours of the job being marked done.</p>
+          </div>
+          <div class="trust-step">
+            <h4>We review the photos</h4>
+            <p>Both the before and after photos are reviewed by our team to assess the situation.</p>
+          </div>
+          <div class="trust-step">
+            <h4>Mediation & resolution</h4>
+            <p>We contact both parties and work toward a fair outcome. Refunds are assessed case by case.</p>
+          </div>
+          <div class="trust-step">
+            <h4>Escalation</h4>
+            <p>If unresolved, the case may be referred to a third party or relevant authority.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <h3 style="margin-bottom: 1rem; font-size: 1.3rem;">Our workers in action</h3>
+      <div class="photo-grid">
+        <div class="photo-placeholder">
+          <div class="ph-icon">📷</div>
+          <p>Real worker photo<br>to be added</p>
+        </div>
+        <div class="photo-placeholder">
+          <div class="ph-icon">📷</div>
+          <p>Before / after job<br>to be added</p>
+        </div>
+        <div class="photo-placeholder">
+          <div class="ph-icon">📷</div>
+          <p>Gaborone home<br>to be added</p>
+        </div>
+      </div>
+
     </div>
   </section>
+  
   <footer>
-    <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p>Handled &copy; 2025 &middot; Gaborone, Botswana</p>
   </footer>
 </div>
 
