@@ -24,7 +24,7 @@
     .section { padding: 5rem 2.5rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     
-    /* Layout Configurations */
+    /* Grid system layouts */
     .auth-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; max-width: 960px; margin: 0 auto; align-items: start; }
     @media(max-width:768px) { .auth-grid { grid-template-columns: 1fr; } }
     .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
@@ -37,7 +37,7 @@
     .form-group input:focus { outline: none; border-color: var(--accent); }
     .form-hint { font-size: .74rem; color: var(--muted); margin-top: .25rem; }
     
-    /* Grid Checkboxes matching your image */
+    /* Service Selection Grid Boxes */
     .service-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .4rem; }
     .service-checkboxes label {
       display: flex; align-items: center; gap: .8rem; font-size: .83rem; cursor: pointer;
@@ -47,7 +47,7 @@
     .service-checkboxes label:hover { border-color: rgba(240,192,64,.5); }
     .service-checkboxes input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
 
-    /* Custom File Input styles matching your image */
+    /* Custom File Input fields */
     .form-group input[type=file] {
       width: 100%; padding: .5rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--muted); font-size: .85rem; cursor: pointer;
     }
@@ -56,14 +56,14 @@
     }
     .form-group input[type=file]::file-selector-button:hover { background: #e0e0e0; }
 
-    /* Consent Area & Elements */
+    /* Privacy Declarations & Rules */
     .kyc-consent { background: rgba(96,165,250,.04); border: 1px solid rgba(96,165,250,.15); border-radius: var(--radius-sm); padding: 1rem; font-size: .8rem; margin-top: 1.5rem; line-height: 1.5; }
     .kyc-consent strong { color: var(--text); display: block; margin-bottom: .25rem; font-family: 'Syne', sans-serif; }
     .kyc-consent a { color: var(--accent); font-weight: 600; text-decoration: none; }
     .checkbox-group { display: flex; align-items: flex-start; gap: .6rem; font-size: .82rem; margin: 1.2rem 0; line-height: 1.4; }
     .checkbox-group input[type=checkbox] { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
 
-    /* Buttons */
+    /* Interactive Interface Elements */
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 700; text-decoration: none; font-family: 'Syne', sans-serif; font-size: .88rem; transition: all .18s; }
     .btn-primary { background: var(--accent); color: #0e0f11; }
     .btn-primary:hover { background: #ffd055; transform: translateY(-1px); }
@@ -144,7 +144,7 @@
             
             <div style="margin-top: 1.5rem;">
               <label style="display:block; font-size:.83rem; font-weight:700; margin-bottom:.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted);">KYC Documents</label>
-              <div class="form-group"><label>Government ID <span style="color:var(--danger)">*</span></label><input type="file" id="kycId" /></div>
+              <div class="form-group"><label>Government ID / Passport <span style="color:var(--danger)">*</span></label><input type="file" id="kycId" /></div>
               <div class="form-group"><label>Selfie <span style="color:var(--danger)">*</span></label><input type="file" id="kycSelfie" /></div>
               <div class="form-group"><label>Proof of Address (optional)</label><input type="file" id="kycAddress" /></div>
               <div class="form-group"><label>Certificates (optional)</label><input type="file" id="kycCert" /></div>
@@ -199,6 +199,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadState();
 });
 
+// Enforces max-4 selections rule dynamically
 function enforceServiceLimit(cb){
   const checked = [...document.querySelectorAll('#workerServiceChecks input:checked')];
   if(checked.length > 4){
@@ -219,14 +220,29 @@ function workerLogin(){
 }
 
 function workerRegister(){
-  const name=document.getElementById('wRegName').value.trim(); const email=document.getElementById('wRegEmail').value.trim(); const pass=document.getElementById('wRegPass').value;
+  const name=document.getElementById('wRegName').value.trim(); 
+  const email=document.getElementById('wRegEmail').value.trim(); 
+  const pass=document.getElementById('wRegPass').value;
+  const phone=document.getElementById('wRegPhone').value.trim();
+  const area=document.getElementById('wRegArea').value.trim();
   const consent=document.getElementById('kycConsent').checked;
+  const idFile=document.getElementById('kycId').files.length;
+  const selfieFile=document.getElementById('kycSelfie').files.length;
   const errEl=document.getElementById('wRegError'); errEl.classList.add('hidden');
   
-  if(!name||!email||!pass){ errEl.textContent='Please fill in all required details.'; errEl.classList.remove('hidden'); return; }
-  if(!consent){ errEl.textContent='You must accept the KYC consent notice.'; errEl.classList.remove('hidden'); return; }
+  // Validation processing loops
+  if(!name || !email || !pass || !phone || !area){ errEl.textContent='Please fill in all textual registration fields.'; errEl.classList.remove('hidden'); return; }
+  if(pass.length < 8){ errEl.textContent='Password must be at least 8 characters.'; errEl.classList.remove('hidden'); return; }
   
-  const worker={id:Date.now(), name, email, password:pass}; state.workers.push(worker); saveState();
+  const checkedServices = [...document.querySelectorAll('#workerServiceChecks input:checked')];
+  if(checkedServices.length === 0){ errEl.textContent='Please select at least 1 job service tier.'; errEl.classList.remove('hidden'); return; }
+  if(idFile === 0 || selfieFile === 0){ errEl.textContent='Government ID and Selfie identity files are mandatory.'; errEl.classList.remove('hidden'); return; }
+  
+  // Requirement 5 Verification: Denies submission cleanly if context box is false
+  if(!consent){ errEl.textContent='You must review and accept the KYC consent notice and privacy policy to register.'; errEl.classList.remove('hidden'); return; }
+  
+  const worker={id:Date.now(), name, email, password:pass, phone, area, services: checkedServices.map(c=>c.value)}; 
+  state.workers.push(worker); saveState();
   state.currentUser=worker;
   showDashboard(name);
 }
@@ -242,4 +258,10 @@ function showDashboard(name){
 function renderAvailableJobs(){
   const list=document.getElementById('workerJobList');
   if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No jobs pending execution in Gaborone.</p>'; return; }
-  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Compensation: P${t.price}
+  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Compensation: P${t.price}</span></div><button class="btn btn-primary" onclick="alert('Accepted!')">Accept Job</button></div>`).join('');
+}
+
+function workerLogout(){ window.location.reload(); }
+</script>
+</body>
+</html>
