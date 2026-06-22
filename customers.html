@@ -72,9 +72,11 @@
   <section class="section">
     <div class="section-inner">
       
+      <!-- AUTH INTERFACE -->
       <div id="customerAuthSection">
         <div class="auth-grid">
           
+          <!-- CUSTOMER LOGIN -->
           <div class="auth-card">
             <h3>Customer Login</h3><br>
             <div class="form-group"><label>Email address</label><input type="email" id="cLoginEmail" placeholder="you@example.com" /></div>
@@ -83,6 +85,7 @@
             <button class="btn btn-primary" style="width:100%" onclick="customerLogin()">Log In</button>
           </div>
           
+          <!-- CUSTOMER ACCOUNT REGISTRATION -->
           <div class="auth-card">
             <h3>Create an Account</h3><br>
             <div class="form-group"><label>Full name</label><input type="text" id="cRegName" placeholder="Your name" /></div>
@@ -95,6 +98,7 @@
         </div>
       </div>
 
+      <!-- INTERACTIVE USER DASHBOARD -->
       <div id="customerDashboard" class="hidden">
         <div class="dashboard">
           <div class="dashboard-header">
@@ -141,7 +145,7 @@
 </div>
 
 <script>
-let state = { currentUser: null, tasks: [], customers: [], taskLat: null, taskLng: null, insideGaborone: true, mapInstance: null, mapMarker: null };
+let state = { currentUser: null, tasks: [], workers: [], customers: [], taskLat: null, taskLng: null, insideGaborone: true, mapInstance: null, mapMarker: null };
 const GBB = { minLat:-24.72, maxLat:-24.55, minLng:25.83, maxLng:25.99 };
 function isInsideGaborone(lat,lng){ return lat>=GBB.minLat&&lat<=GBB.maxLat&&lng>=GBB.minLng&&lng<=GBB.maxLng; }
 
@@ -155,19 +159,47 @@ const SERVICE_OPTIONS = {
   misc:[{label:'Describe your task below',price:150}]
 };
 
-function loadState(){ try { const s=localStorage.getItem('handled_state'); if(s){const d=JSON.parse(s); if(d.tasks)state.tasks=d.tasks; if(d.customers)state.customers=d.customers;} } catch(e){} }
-function saveState(){ try { localStorage.setItem('handled_state',JSON.stringify({tasks:state.tasks, customers:state.customers})); } catch(e){} }
+function loadState(){ 
+  try { 
+    const s = localStorage.getItem('handled_state'); 
+    if(s){
+      const d = JSON.parse(s); 
+      if(d.tasks) state.tasks = d.tasks; 
+      if(d.workers) state.workers = d.workers; 
+      if(d.customers) state.customers = d.customers;
+    } 
+    const sessionUser = localStorage.getItem('handled_current_user');
+    if(sessionUser) { state.currentUser = JSON.parse(sessionUser); }
+  } catch(e){} 
+}
+
+function saveState(){ 
+  try { 
+    localStorage.setItem('handled_state', JSON.stringify({tasks:state.tasks, workers:state.workers, customers:state.customers})); 
+    if(state.currentUser) {
+      localStorage.setItem('handled_current_user', JSON.stringify(state.currentUser));
+    } else {
+      localStorage.removeItem('handled_current_user');
+    }
+  } catch(e){} 
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   loadState();
+  if(state.currentUser) {
+    if(document.getElementById('customerDashboard')) {
+      showDashboardInterface(state.currentUser.name);
+    }
+  }
 });
 
 function customerLogin(){
   const email=document.getElementById('cLoginEmail').value.trim(); const pass=document.getElementById('cLoginPass').value;
   const errEl=document.getElementById('cLoginError'); errEl.classList.add('hidden');
   const cust=state.customers.find(c=>c.email===email&&c.password===pass);
-  if(!cust){ errEl.textContent='Incorrect email matching parameters.'; errEl.classList.remove('hidden'); return; }
+  if(!cust){ errEl.textContent='Incorrect credentials.'; errEl.classList.remove('hidden'); return; }
   state.currentUser=cust;
+  saveState();
   showDashboardInterface(cust.name);
 }
 
@@ -178,13 +210,14 @@ function customerRegister(){
   const phone=document.getElementById('cRegPhone').value.trim();
   const errEl=document.getElementById('cRegError'); errEl.classList.add('hidden');
   
-  if(!name || !email || !pass || !phone){ errEl.textContent='All fields including a phone number are required.'; errEl.classList.remove('hidden'); return; }
+  if(!name || !email || !pass || !phone){ errEl.textContent='All fields are required.'; errEl.classList.remove('hidden'); return; }
   if(pass.length < 8){ errEl.textContent='Password must be at least 8 characters long.'; errEl.classList.remove('hidden'); return; }
-  if(state.customers.find(c=>c.email===email)){ errEl.textContent='This email account parameter already exists.'; errEl.classList.remove('hidden'); return; }
+  if(state.customers.find(c=>c.email===email)){ errEl.textContent='This email already exists.'; errEl.classList.remove('hidden'); return; }
   
   const cust={id:Date.now(), name, email, password:pass, phone}; 
-  state.customers.push(cust); saveState();
+  state.customers.push(cust); 
   state.currentUser=cust;
+  saveState();
   showDashboardInterface(name);
 }
 
@@ -197,7 +230,10 @@ function showDashboardInterface(name){
   refreshCustomerDashboard();
 }
 
-function customerLogout(){ window.location.reload(); }
+function customerLogout(){ 
+  localStorage.removeItem('handled_current_user');
+  window.location.reload(); 
+}
 
 function initMap(){
   if(state.mapInstance) return;
@@ -229,22 +265,21 @@ function updateTaskSubOptions(){
 
 function updatePriceEstimate(){
   const subPrice=parseInt(document.getElementById('taskSub').value)||0; const transport=state.insideGaborone?30:50;
-  document.getElementById('priceEstimate').innerHTML=`<strong>Estimated total execution fee: P${subPrice+transport}</strong> &nbsp;(P${subPrice} item + P${transport} transport calculation)`;
+  document.getElementById('priceEstimate').innerHTML=`<strong>Estimated total execution fee: P${subPrice+transport}</strong>`;
 }
 
 function postTask(){
-  const svc=document.getElementById('taskService').value; if(!svc||state.taskLat===null) { alert('Specify your job types and pin layout flags onto the map container.'); return; }
+  const svc=document.getElementById('taskService').value; if(!svc||state.taskLat===null) { alert('Specify your job types and pin maps.'); return; }
   const subSel=document.getElementById('taskSub'); const subPrice=parseInt(subSel.value)||0; const subLabel=subSel.options[subSel.selectedIndex].text;
   const total=subPrice+(state.insideGaborone?30:50);
   const task={id:Date.now(), customerName:state.currentUser.name, serviceLabel:svc, subLabel, price:total, status:'pending'};
   state.tasks.push(task); saveState(); refreshCustomerDashboard();
-  alert('Job Task Successfully Sent out to System Feed Matrix.');
+  alert('Job Task Successfully Sent!');
 }
 
-// Re-renders the customer dynamic dashboard listings
 function refreshCustomerDashboard(){
   const list=document.getElementById('customerTaskList');
-  if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No active system requests found.</p>'; return; }
+  if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No active requests found.</p>'; return; }
   list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Est P${t.price}</span></div><div><span class="status-badge pending">${t.status}</span></div></div>`).join('');
 }
 </script>
