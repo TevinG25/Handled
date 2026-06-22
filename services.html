@@ -7,19 +7,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* Standard Design Tokens */
     :root {
       --bg: #0e0f11; --surface: #16181c; --surface2: #1e2127; --border: #2a2d35;
       --accent: #f0c040; --text: #f0ece4; --muted: #7a7f8e; --radius: 14px; --radius-sm: 8px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding-top: 66px;}
-    h1, h2, h3 { font-family: 'Syne', sans-serif; }
+    h1, h2, h3, th { font-family: 'Syne', sans-serif; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(14,15,17,.92); backdrop-filter: blur(18px); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 66px; border-bottom: 1px solid var(--border); }
     .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--accent); text-decoration: none; }
     .nav-links { display: flex; gap: 2px; list-style: none; }
     .nav-links a { padding: 8px 13px; font-size: .84rem; font-weight: 500; color: var(--muted); text-decoration: none; }
     .nav-links a.active { color: var(--accent); background: rgba(240,192,64,.09); border-radius: 6px; }
+    .nav-right { display: flex; align-items: center; gap: .8rem; }
+    .nav-right a { font-size: .85rem; font-weight: 700; color: #0e0f11; background: var(--accent); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-family: 'Syne', sans-serif; }
     .section { padding: 5rem 2.5rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
@@ -30,7 +31,11 @@
     .price-table tr:last-child td { border-bottom: none; }
     .price-table td:last-child { text-align: right; font-weight: 700; color: var(--accent); }
     .transport-banner { background: rgba(240,192,64,.06); border: 1px solid rgba(240,192,64,.2); border-radius: var(--radius-sm); padding: 1rem 1.4rem; margin-bottom: 2rem; display: flex; gap: .6rem; font-size: .88rem; }
-    footer { background: var(--surface); text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .85rem; margin-top: 1rem; }
+    .data-table th { background: var(--surface2); padding: .7rem 1rem; text-align: left; color: var(--muted); font-size: .75rem; text-transform: uppercase; }
+    .data-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--border); }
+    .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+    footer { background: var(--surface); text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
     footer a { color: var(--muted); text-decoration: none; margin: 0 .6rem; }
   </style>
 </head>
@@ -46,9 +51,12 @@
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <div class="nav-right">
+    <a href="customers.html">Login / Sign Up</a>
+  </div>
 </nav>
 
-<div class="page" id="page-services" style="display:block;">
+<div class="page" style="display:block;">
   <section class="section">
     <div class="section-inner">
       <h2 style="font-size: 2.4rem; margin-bottom: 1rem;">What every job costs</h2>
@@ -56,7 +64,9 @@
         <span>🚗</span>
         <div><strong>Transport fee:</strong> P30 inside Gaborone &nbsp;·&nbsp; P50 outside Gaborone. Added automatically to every job.</div>
       </div>
+      
       <div class="services-grid">
+        <!-- 1. House Cleaning -->
         <div class="service-card">
           <div class="service-header"><span>🏠</span><h3>House Cleaning</h3></div>
           <div class="service-body" style="padding: 1.2rem 1.6rem;">
@@ -65,20 +75,99 @@
               <tr><td>1 Bedroom</td><td>P180</td></tr>
               <tr><td>2 Bedroom</td><td>P250</td></tr>
               <tr><td>3 Bedroom</td><td>P350</td></tr>
+              <tr><td>4 Bedroom+</td><td>From P450</td></tr>
             </table>
           </div>
         </div>
+        
+        <!-- 2. Gardening -->
         <div class="service-card">
           <div class="service-header"><span>🌿</span><h3>Gardening</h3></div>
           <div class="service-body" style="padding: 1.2rem 1.6rem;">
             <table class="price-table">
-              <tr><td>Small Garden</td><td>P120</td></tr>
-              <tr><td>Medium Garden</td><td>P220</td></tr>
-              <tr><td>Large Garden</td><td>P350</td></tr>
+              <tr><td>Small (townhouse / front)</td><td>P120</td></tr>
+              <tr><td>Medium (standard)</td><td>P220</td></tr>
+              <tr><td>Large (large residential)</td><td>P350</td></tr>
+              <tr><td>Extra Large (plot / estate)</td><td>From P500</td></tr>
             </table>
           </div>
         </div>
+
+        <!-- 3. Moving Assistance -->
+        <div class="service-card">
+          <div class="service-header"><span>📦</span><h3>Moving Assistance</h3></div>
+          <div class="service-body" style="padding: 1.2rem 1.6rem;">
+            <table class="price-table">
+              <tr><td>Single Item</td><td>P150</td></tr>
+              <tr><td>Room Move</td><td>P300</td></tr>
+              <tr><td>Small House</td><td>P600</td></tr>
+              <tr><td>Large House</td><td>P1,000</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Handyman -->
+        <div class="service-card">
+          <div class="service-header"><span>🔨</span><h3>Handyman</h3></div>
+          <div class="service-body" style="padding: 1.2rem 1.6rem;">
+            <table class="price-table">
+              <tr><td>Simple Fix</td><td>P120</td></tr>
+              <tr><td>Furniture Assembly</td><td>P180</td></tr>
+              <tr><td>TV Mounting</td><td>P250</td></tr>
+              <tr><td>General Repairs</td><td>P150 / hr</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Plumbing -->
+        <div class="service-card">
+          <div class="service-header"><span>🔧</span><h3>Plumbing</h3></div>
+          <div class="service-body" style="padding: 1.2rem 1.6rem;">
+            <table class="price-table">
+              <tr><td>Leaking Tap</td><td>P150</td></tr>
+              <tr><td>Blocked Drain</td><td>P220</td></tr>
+              <tr><td>Toilet Repair</td><td>P250</td></tr>
+              <tr><td>Pipe Repair</td><td>P350</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 6. Delivery -->
+        <div class="service-card">
+          <div class="service-header"><span>🛵</span><h3>Delivery</h3></div>
+          <div class="service-body" style="padding: 1.2rem 1.6rem;">
+            <table class="price-table">
+              <tr><td>Small Package</td><td>P50</td></tr>
+              <tr><td>Medium Package</td><td>P80</td></tr>
+              <tr><td>Large Package</td><td>P120</td></tr>
+              <tr><td>Heavy Item</td><td>P220</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 7. Miscellaneous -->
+        <div class="service-card">
+          <div class="service-header"><span>🎲</span><h3>Miscellaneous</h3></div>
+          <div class="service-body" style="padding: 1.2rem 1.6rem;">
+            <p style="font-size:.86rem;color:var(--muted);line-height:1.7">Describe your task freely. Workers submit quotes (minimum P150). Handled takes a 15% platform fee. Transport fee added automatically.</p>
+          </div>
+        </div>
       </div>
+
+      <div class="divider"></div>
+      <h3>Price floors (minimums)</h3>
+      <table class="data-table" style="max-width:480px">
+        <thead><tr><th>Service</th><th>Minimum</th></tr></thead>
+        <tbody>
+          <tr><td>House Cleaning</td><td style="color:var(--accent);font-weight:700">P120</td></tr>
+          <tr><td>Gardening</td><td style="color:var(--accent);font-weight:700">P120</td></tr>
+          <tr><td>Moving Assistance</td><td style="color:var(--accent);font-weight:700">P150</td></tr>
+          <tr><td>Handyman</td><td style="color:var(--accent);font-weight:700">P120</td></tr>
+          <tr><td>Plumbing</td><td style="color:var(--accent);font-weight:700">P150</td></tr>
+          <tr><td>Delivery</td><td style="color:var(--accent);font-weight:700">P50</td></tr>
+          <tr><td>Miscellaneous</td><td style="color:var(--accent);font-weight:700">P150</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
   <footer>
