@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Handled - Contact Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e0f11; --surface: #16181c; --surface2: #1e2127; --border: #2a2d35; --accent: #f0c040; --text: #f0ece4; --muted: #7a7f8e; --radius: 14px; --radius-sm: 8px; --success: #4ade80;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); padding-top: 66px;}
+    h2, h3 { font-family: 'Syne', sans-serif; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(14,15,17,.92); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 66px; border-bottom: 1px solid var(--border); }
+    .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.4rem;}
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a { padding: 8px 13px; font-size: .84rem; color: var(--muted); text-decoration: none; }
+    .nav-links a.active { color: var(--accent); background: rgba(240,192,64,.09); border-radius: 6px; }
+    .section { padding: 5rem 2.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; }
+    .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: .78rem; margin-bottom: .35rem; color: var(--muted); }
+    .form-group input, .form-group textarea { width: 100%; padding: .6rem .9rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); }
+    .btn { display: inline-flex; padding: 10px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 500; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #0e0f11; }
+    .alert-success { background: rgba(74,222,128,.08); color: var(--success); padding: .8rem 1.2rem; border-radius: var(--radius-sm); font-size: .85rem; margin-bottom: 1rem; }
+    .hidden { display: none !important; }
+    footer { background: var(--surface); text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--muted); text-decoration: none; margin: 0 .6rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Handled</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="workers.html">Workers</a></li>
+    <li><a href="customers.html">Customers</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page" id="page-contact" style="display:block;">
+  <section class="section">
+    <div class="section-inner">
+      <h2 style="font-size: 2.4rem; margin-bottom: 1rem;">We're here to help</h2>
+      <div class="contact-grid">
+        <div style="display: flex; flex-direction: column; gap: 1.4rem;">
+          <div><h4>📍 Address</h4><p>Gaborone, Botswana</p></div>
+          <div><h4>✉️ Email</h4><p>support@handled.co.bw</p></div>
+        </div>
+        <div class="auth-card">
+          <h3>Send a message</h3>
+          <div class="form-group"><label>Name</label><input type="text" id="contactName" /></div>
+          <div class="form-group"><label>Email</label><input type="email" id="contactEmail" /></div>
+          <div class="form-group"><label>Message</label><textarea id="contactMsg" rows="5"></textarea></div>
+          <div id="contactSuccess" class="alert alert-success hidden">Message sent! We'll get back to you shortly.</div>
+          <button class="btn btn-primary" style="width:100%" onclick="sendContact()">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </footer>
+</div>
+
+<script>
+function sendContact() {
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const msg = document.getElementById('contactMsg').value.trim();
+  if(!name || !email || !msg) { alert('Please fill in all fields.'); return; }
+  document.getElementById('contactSuccess').classList.remove('hidden');
+  document.getElementById('contactName').value = '';
+  document.getElementById('contactEmail').value = '';
+  document.getElementById('contactMsg').value = '';
+}
+</style>
+</body>
+</html>
