@@ -15,7 +15,7 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); padding-top: 66px;}
-    h2, h3, h4 { font-family: 'Syne', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(14,15,17,.92); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 66px; border-bottom: 1px solid var(--border); }
     .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.4rem;}
     .nav-links { display: flex; list-style: none; }
@@ -25,6 +25,21 @@
     .nav-right a { font-size: .85rem; font-weight: 700; color: #0e0f11; background: var(--accent); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-family: 'Syne', sans-serif; }
     .section { padding: 5rem 2.5rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* For Customers Hero Banner Styles matching image_aa38e4 */
+    .customer-hero { text-align: center; padding: 3rem 0 4rem; max-width: 800px; margin: 0 auto; }
+    .customer-hero-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-family: 'Syne', sans-serif; margin-bottom: .6rem; }
+    .customer-hero-title { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 1.2rem; color: #ffffff; line-height: 1.1; }
+    .customer-hero-sub { color: var(--muted); font-size: 1.1rem; font-weight: 400; line-height: 1.6; margin-bottom: 2.5rem; }
+    .customer-hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+    
+    /* 4-Column Feature Card Layout */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem 1.6rem; text-align: center; }
+    .feature-icon-circle { width: 44px; height: 44px; border-radius: 50%; background: rgba(240,192,64,0.06); border: 1px solid rgba(240,192,64,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.1rem; color: var(--accent); }
+    .feature-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: .8rem; color: #ffffff; letter-spacing: -0.01em; line-height: 1.3; }
+    .feature-card p { font-size: .86rem; color: var(--muted); line-height: 1.6; }
+
     .auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 860px; margin: 0 auto; }
     @media(max-width:680px) { .auth-grid { grid-template-columns: 1fr; } }
     .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
@@ -32,9 +47,13 @@
     .form-group label { display: block; font-size: .78rem; margin-bottom: .35rem; color: var(--muted); }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: .6rem .9rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); font-family: inherit; font-size: .88rem; }
     .form-group input:focus { outline: none; border-color: var(--accent); }
-    .btn { display: inline-flex; padding: 10px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 500; text-decoration: none; }
+    
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 700; text-decoration: none; font-family: 'Syne', sans-serif; font-size: .88rem; transition: all .18s; }
     .btn-primary { background: var(--accent); color: #0e0f11; }
+    .btn-primary:hover { background: #ffd055; transform: translateY(-1px); }
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { background: rgba(255,255,255,0.03); }
+    
     .dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
     .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
     #taskMap { height: 280px; border-radius: var(--radius-sm); margin: 1rem 0; border: 1.5px solid var(--border); }
@@ -72,10 +91,46 @@
   <section class="section">
     <div class="section-inner">
       
-      <!-- AUTH INTERFACE -->
+      <!-- AUTH GATE CONTAINER -->
       <div id="customerAuthSection">
-        <div class="auth-grid">
+        
+        <!-- HERO BANNER AREA (MATCHES IMAGE_AA38E4) -->
+        <div class="customer-hero">
+          <p class="customer-hero-label">For Customers</p>
+          <h2 class="customer-hero-title">Post a Job in Minutes</h2>
+          <p class="customer-hero-sub">Choose a service, pin your location on the map, describe the job, and get connected with a KYC-verified worker in your area.</p>
           
+          <div class="customer-hero-btns">
+            <button class="btn btn-primary" onclick="document.getElementById('cRegName').focus(); document.getElementById('cRegName').scrollIntoView({behavior: 'smooth'});">Register to Post a Job</button>
+            <button class="btn btn-outline" onclick="document.getElementById('cLoginEmail').focus(); document.getElementById('cLoginEmail').scrollIntoView({behavior: 'smooth'});">Already have an account</button>
+          </div>
+
+          <!-- 4 FEATURE CARDS GRID MAPS -->
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon-circle">📍</div>
+              <h4>Pin your location</h4>
+              <p>Drop a pin on the map to show where the job is.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-circle">🛡️</div>
+              <h4>Verified workers only</h4>
+              <p>Only KYC-verified workers can accept your job.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-circle">📷</div>
+              <h4>Before & after photos</h4>
+              <p>Both sides upload photos for full accountability.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-circle">🕒</div>
+              <h4>Pick date & time</h4>
+              <p>Choose when you need the work done.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-grid">
           <!-- CUSTOMER LOGIN -->
           <div class="auth-card">
             <h3>Customer Login</h3><br>
