@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -26,27 +27,52 @@
     .section { padding: 5rem 2.5rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
 
-    /* For Customers Hero Banner Styles matching image_aa38e4 */
+    /* Hero Area Styles from image_aa38e4 */
     .customer-hero { text-align: center; padding: 3rem 0 4rem; max-width: 800px; margin: 0 auto; }
     .customer-hero-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-family: 'Syne', sans-serif; margin-bottom: .6rem; }
     .customer-hero-title { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 1.2rem; color: #ffffff; line-height: 1.1; }
     .customer-hero-sub { color: var(--muted); font-size: 1.1rem; font-weight: 400; line-height: 1.6; margin-bottom: 2.5rem; }
     .customer-hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
     
-    /* 4-Column Feature Card Layout */
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
     .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem 1.6rem; text-align: center; }
     .feature-icon-circle { width: 44px; height: 44px; border-radius: 50%; background: rgba(240,192,64,0.06); border: 1px solid rgba(240,192,64,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.1rem; color: var(--accent); }
     .feature-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: .8rem; color: #ffffff; letter-spacing: -0.01em; line-height: 1.3; }
     .feature-card p { font-size: .86rem; color: var(--muted); line-height: 1.6; }
 
+    /* Dashboard & Form Box Styles from image_aac74a */
+    .dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; max-width: 680px; margin: 0 auto; }
+    .dashboard-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+    .post-job-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-family: 'Syne', sans-serif; margin-bottom: .4rem; }
+    .post-job-title { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #ffffff; margin-bottom: .5rem; }
+    .post-job-sub { color: var(--muted); font-size: .92rem; margin-bottom: 2rem; }
+
     .auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 860px; margin: 0 auto; }
     @media(max-width:680px) { .auth-grid { grid-template-columns: 1fr; } }
     .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: .78rem; margin-bottom: .35rem; color: var(--muted); }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: .6rem .9rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); font-family: inherit; font-size: .88rem; }
-    .form-group input:focus { outline: none; border-color: var(--accent); }
+    
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: .83rem; font-weight: 600; margin-bottom: .5rem; color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); font-family: inherit; font-size: .88rem; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+    
+    /* Side by side date and time row */
+    .date-time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.2rem; }
+    @media(max-width: 480px) { .date-time-row { grid-template-columns: 1fr; gap: 1.2rem; } }
+
+    /* Location Cards from image_aac74a */
+    .location-zone-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
+    .zone-card { background: var(--surface2); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; cursor: pointer; transition: all .18s; position: relative; }
+    .zone-card.selected { border-color: var(--accent); background: rgba(240,192,64,0.04); }
+    .zone-card-title { font-size: .88rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: .4rem; margin-bottom: .25rem; }
+    .zone-card-sub { font-size: .75rem; color: var(--muted); }
+
+    #taskMap { height: 260px; border-radius: var(--radius-sm); margin: .6rem 0; border: 1.5px solid var(--border); }
+    .price-estimate { background: rgba(240,192,64,.04); border: 1.5px solid rgba(240,192,64,.15); border-radius: var(--radius-sm); padding: 1rem 1.2rem; font-size: .9rem; margin: 1.5rem 0; text-align: center; }
+    .price-estimate strong { color: var(--accent); font-size: 1.1rem; }
+    
+    .task-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+    .task-item { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 1.2rem 1.4rem; display: flex; justify-content: space-between; background: var(--surface2); }
     
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: var(--radius-sm); cursor: pointer; border: none; font-weight: 700; text-decoration: none; font-family: 'Syne', sans-serif; font-size: .88rem; transition: all .18s; }
     .btn-primary { background: var(--accent); color: #0e0f11; }
@@ -54,13 +80,6 @@
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-outline:hover { background: rgba(255,255,255,0.03); }
     
-    .dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
-    .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-    #taskMap { height: 280px; border-radius: var(--radius-sm); margin: 1rem 0; border: 1.5px solid var(--border); }
-    .price-estimate { background: rgba(240,192,64,.06); border: 1.5px solid rgba(240,192,64,.2); border-radius: var(--radius-sm); padding: .9rem 1.2rem; font-size: .9rem; margin-top: .8rem; }
-    .price-estimate strong { color: var(--accent); font-size: 1.1rem; }
-    .task-list { display: flex; flex-direction: column; gap: 1rem; }
-    .task-item { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 1.2rem 1.4rem; display: flex; justify-content: space-between; background: var(--surface2); }
     .alert { padding: .8rem 1.2rem; border-radius: var(--radius-sm); font-size: .85rem; margin-bottom: 1rem; }
     .alert-warning { background: rgba(240,192,64,.08); color: var(--accent); border: 1px solid rgba(240,192,64,.25); }
     .status-badge { font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
@@ -93,8 +112,6 @@
       
       <!-- AUTH GATE CONTAINER -->
       <div id="customerAuthSection">
-        
-        <!-- HERO BANNER AREA (MATCHES IMAGE_AA38E4) -->
         <div class="customer-hero">
           <p class="customer-hero-label">For Customers</p>
           <h2 class="customer-hero-title">Post a Job in Minutes</h2>
@@ -105,7 +122,6 @@
             <button class="btn btn-outline" onclick="document.getElementById('cLoginEmail').focus(); document.getElementById('cLoginEmail').scrollIntoView({behavior: 'smooth'});">Already have an account</button>
           </div>
 
-          <!-- 4 FEATURE CARDS GRID MAPS -->
           <div class="features-grid">
             <div class="feature-card">
               <div class="feature-icon-circle">📍</div>
@@ -131,7 +147,6 @@
         </div>
 
         <div class="auth-grid">
-          <!-- CUSTOMER LOGIN -->
           <div class="auth-card">
             <h3>Customer Login</h3><br>
             <div class="form-group"><label>Email address</label><input type="email" id="cLoginEmail" placeholder="you@example.com" /></div>
@@ -139,8 +154,6 @@
             <div id="cLoginError" class="alert alert-warning hidden"></div>
             <button class="btn btn-primary" style="width:100%" onclick="customerLogin()">Log In</button>
           </div>
-          
-          <!-- CUSTOMER ACCOUNT REGISTRATION -->
           <div class="auth-card">
             <h3>Create an Account</h3><br>
             <div class="form-group"><label>Full name</label><input type="text" id="cRegName" placeholder="Your name" /></div>
@@ -153,43 +166,83 @@
         </div>
       </div>
 
-      <!-- INTERACTIVE USER DASHBOARD -->
+      <!-- INTERACTIVE USER DASHBOARD MATCHING IMAGE_AAC74A -->
       <div id="customerDashboard" class="hidden">
+        <div class="dashboard-header-row">
+          <div><span style="font-size:0.9rem; color:var(--accent); font-weight:700;">Account Activity</span></div>
+          <button class="btn btn-outline" style="padding: 6px 14px; font-size: 0.8rem;" onclick="customerLogout()">Log out</button>
+        </div>
+
         <div class="dashboard">
-          <div class="dashboard-header">
-            <h3 id="customerWelcome">Welcome back</h3>
-            <button class="btn btn-outline" onclick="customerLogout()">Log out</button>
+          <p class="post-job-label">Post a Job</p>
+          <h2 class="post-job-title">What do you need done?</h2>
+          <p class="post-job-sub">Fill in the details and verified workers will see your request.</p>
+          
+          <div class="form-group">
+            <label>Service Type</label>
+            <select id="taskService" onchange="updateTaskSubOptions()">
+              <option value="">— Choose a service —</option>
+              <option value="cleaning">🏠 House Cleaning</option>
+              <option value="gardening">🌿 Gardening</option>
+              <option value="moving">📦 Moving Assistance</option>
+              <option value="handyman">🔨 Handyman</option>
+              <option value="plumbing">🔧 Plumbing</option>
+              <option value="delivery">🛵 Delivery</option>
+              <option value="misc">🎲 Miscellaneous</option>
+            </select>
           </div>
           
-          <div style="background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:1.6rem; margin-bottom:2rem">
-            <h4 style="margin-bottom:1rem">Post a New Job</h4>
-            <div class="form-group">
-              <label>Service Type</label>
-              <select id="taskService" onchange="updateTaskSubOptions()">
-                <option value="">— Choose a service —</option>
-                <option value="cleaning">🏠 House Cleaning</option>
-                <option value="gardening">🌿 Gardening</option>
-                <option value="moving">📦 Moving Assistance</option>
-                <option value="handyman">🔨 Handyman</option>
-                <option value="plumbing">🔧 Plumbing</option>
-                <option value="delivery">🛵 Delivery</option>
-                <option value="misc">🎲 Miscellaneous</option>
-              </select>
-            </div>
-            <div class="form-group" id="taskSubGroup" style="display:none"><label>Specify job details</label><select id="taskSub" onchange="updatePriceEstimate()"></select></div>
-            <div class="form-group">
-              <label>Drop a pin on the map (click to place layout flag)</label>
-              <div id="taskMap"></div>
-              <div style="font-size:.78rem;color:var(--muted);margin-top:.3rem" id="locationStatus">No location selected.</div>
-            </div>
-            <div class="form-group"><label>Description</label><textarea id="taskDesc" rows="3" placeholder="Provide extra helpful descriptions..."></textarea></div>
-            <div class="price-estimate" id="priceEstimate">Select a service to see price estimate.</div><br>
-            <button class="btn btn-primary" onclick="postTask()">Post Job</button>
+          <div class="form-group" id="taskSubGroup" style="display:none">
+            <label>Service Tier</label>
+            <select id="taskSub" onchange="updatePriceEstimate()"></select>
+          </div>
+          
+          <div class="form-group">
+            <label>Describe the job</label>
+            <textarea id="taskDesc" rows="4" placeholder="Describe exactly what you need done, any special requirements, access details, etc."></textarea>
           </div>
 
-          <h4>My Jobs</h4><br>
-          <div id="customerTaskList" class="task-list"><p style="color:var(--muted);font-size:.86rem">No jobs posted yet.</p></div>
+          <div class="date-time-row">
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" id="taskDate" />
+            </div>
+            <div class="form-group">
+              <label>Preferred Time</label>
+              <input type="time" id="taskTime" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Location Zone</label>
+            <div class="location-zone-row">
+              <div class="zone-card selected" id="zoneGabs" onclick="setZone(true)">
+                <div class="zone-card-title">📍 Inside Gaborone</div>
+                <div class="zone-card-sub">P30 transport added</div>
+              </div>
+              <div class="zone-card" id="zoneOutside" onclick="setZone(false)">
+                <div class="zone-card-title">📍 Outside Gaborone</div>
+                <div class="zone-card-sub">P50 transport added</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 0.3rem;">
+              <span style="color: var(--accent);">📍</span> Pin job location on map
+            </label>
+            <p style="font-size: 0.76rem; color: var(--muted); margin-bottom: 0.4rem;">Click on the map to place a pin at the job location</p>
+            <div id="taskMap"></div>
+            <div style="font-size:.74rem;color:var(--muted);margin-top:.4rem" id="locationStatus">Pinned: -24.6282, 25.9231</div>
+          </div>
+
+          <div class="price-estimate" id="priceEstimate">Select a service to see price estimate.</div>
+          
+          <button class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 14px;" onclick="postTask()">Post Job</button>
         </div>
+
+        <h4>My Active Jobs</h4>
+        <div id="customerTaskList" class="task-list"><p style="color:var(--muted);font-size:.86rem">No jobs posted yet.</p></div>
       </div>
 
     </div>
@@ -200,18 +253,17 @@
 </div>
 
 <script>
-let state = { currentUser: null, tasks: [], workers: [], customers: [], taskLat: null, taskLng: null, insideGaborone: true, mapInstance: null, mapMarker: null };
-const GBB = { minLat:-24.72, maxLat:-24.55, minLng:25.83, maxLng:25.99 };
-function isInsideGaborone(lat,lng){ return lat>=GBB.minLat&&lat<=GBB.maxLat&&lng>=GBB.minLng&&lng<=GBB.maxLng; }
+let state = { currentUser: null, tasks: [], workers: [], customers: [], taskLat: -24.6282, taskLng: 25.9231, insideGaborone: true, mapInstance: null, mapMarker: null };
 
+// ACCURATE MATRIX SYNC WITH YOUR SERVICES SHEET
 const SERVICE_OPTIONS = {
-  cleaning:[{label:'Single Room',price:120},{label:'1 Bedroom',price:180},{label:'2 Bedroom',price:250},{label:'3 Bedroom',price:350}],
-  gardening:[{label:'Small Garden',price:120},{label:'Medium Garden',price:220},{label:'Large Garden',price:350}],
-  moving:[{label:'Single Item',price:150},{label:'Room Move',price:300}],
-  handyman:[{label:'Simple Fix',price:120},{label:'Furniture Assembly',price:180}],
-  plumbing:[{label:'Leaking Tap',price:150},{label:'Blocked Drain',price:220}],
-  delivery:[{label:'Small Package',price:50},{label:'Medium Package',price:80}],
-  misc:[{label:'Describe your task below',price:150}]
+  cleaning:[{label:'Single Room',price:120},{label:'1 Bedroom',price:180},{label:'2 Bedroom',price:250},{label:'3 Bedroom',price:350},{label:'4 Bedroom+',price:450}],
+  gardening:[{label:'Small (townhouse / front)',price:120},{label:'Medium (standard)',price:220},{label:'Large (large residential)',price:350},{label:'Extra Large (plot / estate)',price:500}],
+  moving:[{label:'Single Item',price:150},{label:'Room Move',price:300},{label:'Small House',price:600},{label:'Large House',price:1000}],
+  handyman:[{label:'Simple Fix',price:120},{label:'Furniture Assembly',price:180},{label:'TV Mounting',price:250},{label:'General Repairs (per hour)',price:150}],
+  plumbing:[{label:'Leaking Tap',price:150},{label:'Blocked Drain',price:220},{label:'Toilet Repair',price:250},{label:'Pipe Repair',price:350}],
+  delivery:[{label:'Small Package',price:50},{label:'Medium Package',price:80},{label:'Large Package',price:120},{label:'Heavy Item',price:220}],
+  misc:[{label:'Describe your task freely',price:150}]
 };
 
 function loadState(){ 
@@ -279,8 +331,7 @@ function customerRegister(){
 function showDashboardInterface(name){
   document.getElementById('customerAuthSection').classList.add('hidden');
   document.getElementById('customerDashboard').classList.remove('hidden');
-  document.getElementById('customerWelcome').textContent='Welcome, '+name;
-  document.getElementById('navAuthZone').innerHTML = `<span style="font-size:0.85rem;color:var(--accent)">👋 ${name}</span>`;
+  document.getElementById('navAuthZone').innerHTML = `<span style="font-size:0.85rem;color:var(--accent);font-weight:700;">👋 ${name}</span>`;
   setTimeout(initMap, 200);
   refreshCustomerDashboard();
 }
@@ -292,50 +343,79 @@ function customerLogout(){
 
 function initMap(){
   if(state.mapInstance) return;
-  const map=L.map('taskMap').setView([-24.6282,25.9231],13);
+  const map=L.map('taskMap').setView([state.taskLat, state.taskLng],13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
   state.mapInstance=map;
-  map.on('click',function(e){
-    const {lat,lng}=e.latlng; state.taskLat=lat; state.taskLng=lng; state.insideGaborone=isInsideGaborone(lat,lng);
-    if(state.mapMarker) state.mapMarker.setLatLng([lat,lng]);
-    else state.mapMarker=L.marker([lat,lng],{draggable:true}).addTo(map).on('dragend', function(evt){
-      const pt = evt.target.getLatLng();
-      state.taskLat=pt.lat; state.taskLng=pt.lng; state.insideGaborone=isInsideGaborone(pt.lat,pt.lng);
-      updateLocationStatus(); updatePriceEstimate();
-    });
+  
+  // Setup standard pin icon initialization
+  state.mapMarker = L.marker([state.taskLat, state.taskLng], {draggable: true}).addTo(map);
+  
+  state.mapMarker.on('dragend', function(evt){
+    const pt = evt.target.getLatLng();
+    state.taskLat = pt.lat; state.taskLng = pt.lng;
+    updateLocationStatus(); updatePriceEstimate();
+  });
+
+  map.on('click', function(e){
+    const {lat,lng} = e.latlng; state.taskLat = lat; state.taskLng = lng;
+    state.mapMarker.setLatLng([lat,lng]);
     updateLocationStatus(); updatePriceEstimate();
   });
 }
 
+function setZone(isGabs) {
+  state.insideGaborone = isGabs;
+  document.getElementById('zoneGabs').classList.toggle('selected', isGabs);
+  document.getElementById('zoneOutside').classList.toggle('selected', !isGabs);
+  updateLocationStatus();
+  updatePriceEstimate();
+}
+
 function updateLocationStatus(){
-  document.getElementById('locationStatus').textContent=`📍 ${state.taskLat.toFixed(4)}, ${state.taskLng.toFixed(4)} — ${state.insideGaborone?'Gaborone Region (+P30)':'Outside Boundaries (+P50)'}`;
+  document.getElementById('locationStatus').textContent = `Pinned: ${state.taskLat.toFixed(5)}, ${state.taskLng.toFixed(5)}`;
 }
 
 function updateTaskSubOptions(){
   const svc=document.getElementById('taskService').value; const subGroup=document.getElementById('taskSubGroup'); const subSel=document.getElementById('taskSub');
-  if(!svc){subGroup.style.display='none'; return;}
-  subSel.innerHTML=SERVICE_OPTIONS[svc].map(o=>`<option value="${o.price}">${o.label}</option>`).join('');
+  if(!svc){subGroup.style.display='none'; updatePriceEstimate(); return;}
+  subSel.innerHTML=SERVICE_OPTIONS[svc].map(o=>`<option value="${o.price}">${o.label} (P${o.price})</option>`).join('');
   subGroup.style.display=''; updatePriceEstimate();
 }
 
 function updatePriceEstimate(){
-  const subPrice=parseInt(document.getElementById('taskSub').value)||0; const transport=state.insideGaborone?30:50;
-  document.getElementById('priceEstimate').innerHTML=`<strong>Estimated total execution fee: P${subPrice+transport}</strong>`;
+  const svc=document.getElementById('taskService').value;
+  if(!svc){ document.getElementById('priceEstimate').innerHTML='Select a service to see price estimate.'; return; }
+  const subPrice=parseInt(document.getElementById('taskSub').value)||0; 
+  const transport=state.insideGaborone?30:50;
+  document.getElementById('priceEstimate').innerHTML=`<strong>Estimated total: P${subPrice+transport}</strong> &nbsp;(P${subPrice} service + P${transport} transport)`;
 }
 
 function postTask(){
-  const svc=document.getElementById('taskService').value; if(!svc||state.taskLat===null) { alert('Specify your job types and pin maps.'); return; }
+  const svc=document.getElementById('taskService').value; if(!svc) { alert('Specify your job type before posting.'); return; }
   const subSel=document.getElementById('taskSub'); const subPrice=parseInt(subSel.value)||0; const subLabel=subSel.options[subSel.selectedIndex].text;
   const total=subPrice+(state.insideGaborone?30:50);
-  const task={id:Date.now(), customerName:state.currentUser.name, serviceLabel:svc, subLabel, price:total, status:'pending'};
+  const dateVal=document.getElementById('taskDate').value;
+  const timeVal=document.getElementById('taskTime').value;
+  
+  const task={id:Date.now(), customerName:state.currentUser.name, serviceLabel:svc, subLabel, price:total, status:'pending', date: dateVal, time: timeVal};
   state.tasks.push(task); saveState(); refreshCustomerDashboard();
-  alert('Job Task Successfully Sent!');
+  
+  // Reset fields smoothly
+  document.getElementById('taskService').value = '';
+  document.getElementById('taskSubGroup').style.display = 'none';
+  document.getElementById('taskDesc').value = '';
+  document.getElementById('taskDate').value = '';
+  document.getElementById('taskTime').value = '';
+  updatePriceEstimate();
+  
+  alert('Job Task Successfully Posted!');
 }
 
 function refreshCustomerDashboard(){
   const list=document.getElementById('customerTaskList');
-  if(!state.tasks.length){ list.innerHTML='<p style="color:var(--muted)">No active requests found.</p>'; return; }
-  list.innerHTML=state.tasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Est P${t.price}</span></div><div><span class="status-badge pending">${t.status}</span></div></div>`).join('');
+  const myTasks = state.tasks || [];
+  if(!myTasks.length){ list.innerHTML='<p style="color:var(--muted); font-size:0.85rem;">No active requests found.</p>'; return; }
+  list.innerHTML=myTasks.map(t=>`<div class="task-item"><div><strong>${t.subLabel}</strong><br><span style="color:var(--muted)">Price: P${t.price} ${t.date ? '· '+t.date : ''}</span></div><div><span class="status-badge pending">${t.status}</span></div></div>`).join('');
 }
 </script>
 </body>
